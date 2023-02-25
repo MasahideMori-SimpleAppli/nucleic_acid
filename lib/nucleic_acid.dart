@@ -1,1 +1,1 @@
-export 'amino_acid/amino_acid.dart';
+export 'amino_acid/amino_acid_all.dart';
