@@ -137,32 +137,44 @@ class AminoAcid {
     'V': 'Val'
   };
 
-  /// Convert full name to three-letter notation.
+  /// (en) Convert full name to three-letter notation.
+  ///
+  /// (ja) フルネームのアミノ酸名から３文字表記に変換します。
   static String? convertThree(String aminoAcidFullName) {
     return fullToThree[aminoAcidFullName];
   }
 
-  /// Convert full name to one-letter notation.
+  /// (en) Convert full name to one-letter notation.
+  ///
+  /// (ja) フルネームのアミノ酸名から１文字表記に変換します。
   static String? convertOne(String aminoAcidFullName) {
     return fullToOne[aminoAcidFullName];
   }
 
-  /// Convert three-letter notation to full name.
+  /// (en) Convert three-letter notation to full name.
+  ///
+  /// (ja) ３文字表記のアミノ酸名からフルネームに変換します。
   static String? convertThreeToFull(String threeLetterNotation) {
     return threeToFull[threeLetterNotation];
   }
 
-  /// Convert three-letter notation to one-letter notation.
+  /// (en) Convert three-letter notation to one-letter notation.
+  ///
+  /// (ja) ３文字表記のアミノ酸名から１文字表記に変換します。
   static String? convertThreeToOne(String threeLetterNotation) {
     return threeToOne[threeLetterNotation];
   }
 
-  /// Convert one-letter notation to full name.
+  /// (en) Convert one-letter notation to full name.
+  ///
+  /// (ja) １文字表記のアミノ酸名からフルネームに変換します。
   static String? convertOneToFull(String oneLetterNotation) {
     return oneToFull[oneLetterNotation];
   }
 
-  /// Convert one-letter notation to three-letter notation.
+  /// (en) Convert one-letter notation to three-letter notation.
+  ///
+  /// (ja) １文字表記のアミノ酸名からフルネームに変換します。
   static String? convertOneToThree(String oneLetterNotation) {
     return oneToThree[oneLetterNotation];
   }
