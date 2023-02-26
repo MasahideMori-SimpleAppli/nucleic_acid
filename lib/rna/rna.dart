@@ -83,6 +83,8 @@ class RNA {
   /// (en)Converts an input RNA sequence into a complementary strand sequence(RNA).
   ///
   /// (ja)入力 RNA 配列を相補鎖配列(RNA)に変換します。
+  ///
+  /// Throw: Invalid RNA string.
   static String complement(String rna) {
     String r = '';
     for (var i = 0; i < rna.length; i++) {
@@ -99,6 +101,8 @@ class RNA {
   /// (en)Converts an input RNA sequence into a complementary strand sequence(DNA).
   ///
   /// (ja)入力 RNA 配列を相補鎖配列(DNA)に変換します。
+  ///
+  /// Throw: Invalid RNA string.
   static String complementDNA(String rna) {
     String r = '';
     for (var i = 0; i < rna.length; i++) {

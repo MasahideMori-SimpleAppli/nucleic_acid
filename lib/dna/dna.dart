@@ -90,6 +90,8 @@ class DNA{
   /// (en)Converts an input DNA sequence into a complementary strand sequence(DNA).
   ///
   /// (ja)入力 DNA 配列を相補鎖配列(DNA)に変換します。
+  ///
+  /// Throw: Invalid DNA string.
   static String complement(String dna) {
     String r = '';
     for (var i = 0; i < dna.length; i++) {
@@ -106,6 +108,8 @@ class DNA{
   /// (en)Converts an input DNA sequence into a complementary strand sequence(RNA).
   ///
   /// (ja)入力 DNA 配列を相補鎖配列(RNA)に変換します。
+  ///
+  /// Throw: Invalid DNA string.
   static String complementRNA(String dna) {
     String r = '';
     for (var i = 0; i < dna.length; i++) {
@@ -124,6 +128,8 @@ class DNA{
   /// (ja)入力 DNA 配列が転写された結果生成される RNA 配列を取得します。
   ///
   /// * [dna] : sense strand.
+  ///
+  /// Throw: Invalid DNA string.
   static String transcriptionFromSenseStrand(String dna){
     String r = '';
     for (var i = 0; i < dna.length; i++) {
@@ -142,6 +148,8 @@ class DNA{
   /// (ja)入力 DNA 配列が転写された結果生成される RNA 配列を取得します。
   ///
   /// * [dna] : antisense strand.
+  ///
+  /// Throw: Invalid DNA string.
   static String transcriptionFromAntiSenseStrand(String dna){
     String senseStrand = complement(dna);
     return transcriptionFromSenseStrand(senseStrand);
