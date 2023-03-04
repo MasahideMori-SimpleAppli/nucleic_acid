@@ -80,6 +80,21 @@ class RNA {
     'G': 'C'
   };
 
+  /// (en) Checks the given string for non-RNA characters.
+  ///
+  /// (ja) 与えられた文字列にRNAではない文字が無いかをチェックします。
+  ///
+  /// Return: char list.
+  ///
+  /// Throw: Invalid DNA string.
+  static void checkBase(String rna) {
+    for (int i = 0; i < rna.length; i++) {
+      if (!complementMap.containsKey(rna[i])) {
+        throw Exception('Invalid RNA base: ${rna[i]}');
+      }
+    }
+  }
+
   /// (en)Converts an input RNA sequence into a complementary strand sequence(RNA).
   ///
   /// (ja)入力 RNA 配列を相補鎖配列(RNA)に変換します。
@@ -87,13 +102,8 @@ class RNA {
   /// Throw: Invalid RNA string.
   static String complement(String rna) {
     String r = '';
-    for (var i = 0; i < rna.length; i++) {
-      var base = rna[i];
-      if (complementMap.containsKey(base)) {
-        r += complementMap[base]!;
-      } else {
-        throw Exception('Invalid RNA base: $base');
-      }
+    for (int i = 0; i < rna.length; i++) {
+      r += complementMap[rna[i]]!;
     }
     return r;
   }
@@ -105,13 +115,8 @@ class RNA {
   /// Throw: Invalid RNA string.
   static String complementDNA(String rna) {
     String r = '';
-    for (var i = 0; i < rna.length; i++) {
-      var base = rna[i];
-      if (dnaComplementMap.containsKey(base)) {
-        r += dnaComplementMap[base]!;
-      } else {
-        throw Exception('Invalid RNA base: $base');
-      }
+    for (int i = 0; i < rna.length; i++) {
+      r += dnaComplementMap[rna[i]]!;
     }
     return r;
   }

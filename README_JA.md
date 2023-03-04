@@ -7,7 +7,7 @@
 ## 使い方
 ```dart
 
-// サンプルコードは後で追加される予定です。
+String tacg = DNA.complement("ATGC");
 
 ```
 

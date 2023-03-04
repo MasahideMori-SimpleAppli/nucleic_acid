@@ -1,4 +1,4 @@
-class DNA{
+class DNA {
   static const Map<String, String> toAminoAcids = {
     'TTT': 'Phe',
     'TTC': 'Phe',
@@ -87,20 +87,28 @@ class DNA{
     'G': 'G'
   };
 
+  /// (en) Checks the given string for non-DNA characters.
+  ///
+  /// (ja) 与えられた文字列にDNAではない文字が無いかをチェックします。
+  ///
+  /// Return: char list.
+  ///
+  /// Throw: Invalid DNA string.
+  static void checkBase(String dna) {
+    for (int i = 0; i < dna.length; i++) {
+      if (!complementMap.containsKey(dna[i])) {
+        throw Exception('Invalid DNA base: ${dna[i]}');
+      }
+    }
+  }
+
   /// (en)Converts an input DNA sequence into a complementary strand sequence(DNA).
   ///
   /// (ja)入力 DNA 配列を相補鎖配列(DNA)に変換します。
-  ///
-  /// Throw: Invalid DNA string.
   static String complement(String dna) {
     String r = '';
-    for (var i = 0; i < dna.length; i++) {
-      final String base = dna[i];
-      if (complementMap.containsKey(base)) {
-        r += complementMap[base]!;
-      } else {
-        throw Exception('Invalid DNA base: $base');
-      }
+    for (int i = 0; i < dna.length; i++) {
+      r += complementMap[dna[i]]!;
     }
     return r;
   }
@@ -112,13 +120,8 @@ class DNA{
   /// Throw: Invalid DNA string.
   static String complementRNA(String dna) {
     String r = '';
-    for (var i = 0; i < dna.length; i++) {
-      final String base = dna[i];
-      if (rnaComplementMap.containsKey(base)) {
-        r += rnaComplementMap[base]!;
-      } else {
-        throw Exception('Invalid DNA base: $base');
-      }
+    for (int i = 0; i < dna.length; i++) {
+      r += rnaComplementMap[dna[i]]!;
     }
     return r;
   }
@@ -130,15 +133,10 @@ class DNA{
   /// * [dna] : sense strand.
   ///
   /// Throw: Invalid DNA string.
-  static String transcriptionFromSenseStrand(String dna){
+  static String transcriptionFromSenseStrand(String dna) {
     String r = '';
-    for (var i = 0; i < dna.length; i++) {
-      final String base = dna[i];
-      if (transcriptionMap.containsKey(base)) {
-        r += transcriptionMap[base]!;
-      } else {
-        throw Exception('Invalid DNA base: $base');
-      }
+    for (int i = 0; i < dna.length; i++) {
+      r += transcriptionMap[dna[i]]!;
     }
     return r;
   }
@@ -150,9 +148,8 @@ class DNA{
   /// * [dna] : antisense strand.
   ///
   /// Throw: Invalid DNA string.
-  static String transcriptionFromAntiSenseStrand(String dna){
+  static String transcriptionFromAntiSenseStrand(String dna) {
     String senseStrand = complement(dna);
     return transcriptionFromSenseStrand(senseStrand);
   }
-
 }

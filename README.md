@@ -10,7 +10,7 @@ This package is made for scientists.
 ## Usage
 ```dart
 
-// I will add it later.
+String tacg = DNA.complement("ATGC");
 
 ```
 
