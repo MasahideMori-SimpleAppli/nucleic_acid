@@ -1,6 +1,6 @@
 # nucleic_acid
 
-* This library is a version under adjustment, so it contains various problems. The stable version will be version 1 or higher.
+* This library is a version under adjustment, so it contains various problems. The stable version will be version 1 or higher.  
 (en)Japanese ver is [here](https://github.com/MasahideMori-SimpleAppli/nucleic_acid/blob/main/README_JA.md).  
 (ja)この解説の日本語版は[ここ](https://github.com/MasahideMori-SimpleAppli/nucleic_acid/blob/main/README_JA.md)にあります。
 
