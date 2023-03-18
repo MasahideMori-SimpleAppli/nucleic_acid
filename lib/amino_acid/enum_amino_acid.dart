@@ -1,4 +1,5 @@
 import 'package:nucleic_acid/amino_acid/f_amino_acid.dart';
+import 'package:nucleic_acid/amino_acid/util_amino_acid.dart';
 
 enum EnumAminoAcid {
   A,
@@ -52,5 +53,11 @@ extension EXTEnumAminoAcid on EnumAminoAcid {
   /// * [name] : Full name.
   static EnumAminoAcid fromFullStr(String name) {
     return EnumAminoAcid.values.byName(FAminoAcid.fullToOne[name]!);
+  }
+
+  /// * [name] : Japanese name.
+  static EnumAminoAcid fromJAStr(String name) {
+    return EnumAminoAcid.values
+        .byName(UtilAminoAcid.convertEN2JA(FAminoAcid.fullToOne[name]!)!);
   }
 }

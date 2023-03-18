@@ -42,4 +42,18 @@ class UtilAminoAcid {
   static String? convertOneToThree(String oneLetterNotation) {
     return FAminoAcid.oneToThree[oneLetterNotation];
   }
+
+  /// (en) Convert english full name to japanese full name.
+  ///
+  /// (ja)フルネームの英語のアミノ酸名から日本語表記に変換します。
+  static String? convertJA2EN(String aminoAcidFullNameEN) {
+    return FAminoAcid.enToJA[aminoAcidFullNameEN];
+  }
+
+  /// (en) Convert japanese full name to english full name.
+  ///
+  /// (ja)日本語のアミノ酸名から英語のフルネーム表記に変換します。
+  static String? convertEN2JA(String aminoAcidFullNameJA) {
+    return FAminoAcid.jaToEnFull[aminoAcidFullNameJA];
+  }
 }
