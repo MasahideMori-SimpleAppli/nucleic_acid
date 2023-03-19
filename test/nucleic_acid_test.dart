@@ -3,6 +3,7 @@ import 'package:nucleic_acid/nucleic_acid.dart';
 
 void main() {
   test('Test UtilDNA', () {
+    print("util dna");
     bool errFlag = false;
     try {
       UtilDNA.checkBase("ATGC");
@@ -23,6 +24,7 @@ void main() {
   });
 
   test('Test UtilRNA', () {
+    print("util rna");
     bool errFlag = false;
     try {
       UtilRNA.checkBase("AUGC");

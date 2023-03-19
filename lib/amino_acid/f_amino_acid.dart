@@ -1,3 +1,6 @@
+/// Some information was created with reference to:
+/// https://www.ddbj.nig.ac.jp/ddbj/code.html
+/// https://creativecommons.org/licenses/by/4.0/deed.ja
 class FAminoAcid {
   static const Map<String, String> fullToThree = {
     'Alanine': 'Ala',
@@ -19,7 +22,13 @@ class FAminoAcid {
     'Threonine': 'Thr',
     'Tryptophan': 'Trp',
     'Tyrosine': 'Tyr',
-    'Valine': 'Val'
+    'Valine': 'Val',
+    // 追加のアミノ酸やor指定など
+    'Selenocysteine': 'Sec',
+    'Aspartic acid or Asparagine': 'Asx',
+    'Glutamic acid or Glutamine': 'Glx',
+    'Any amino acid': 'Xaa',
+    'Leucine or Isoleucine': 'Xle',
   };
 
   static const Map<String, String> fullToOne = {
@@ -42,7 +51,13 @@ class FAminoAcid {
     'Threonine': 'T',
     'Tryptophan': 'W',
     'Tyrosine': 'Y',
-    'Valine': 'V'
+    'Valine': 'V',
+    // 追加のアミノ酸やor指定など
+    'Selenocysteine': 'U',
+    'Aspartic acid or Asparagine': 'B',
+    'Glutamic acid or Glutamine': 'Z',
+    'Any amino acid': 'X',
+    'Leucine or Isoleucine': 'J',
   };
 
   static const Map<String, String> threeToFull = {
@@ -65,7 +80,13 @@ class FAminoAcid {
     'Thr': 'Threonine',
     'Trp': 'Tryptophan',
     'Tyr': 'Tyrosine',
-    'Val': 'Valine'
+    'Val': 'Valine',
+    // 追加のアミノ酸やor指定など
+    'Sec': 'Selenocysteine',
+    'Asx': 'Aspartic acid or Asparagine',
+    'Glx': 'Glutamic acid or Glutamine',
+    'Xaa': 'Any amino acid',
+    'Xle': 'Leucine or Isoleucine',
   };
 
   static const Map<String, String> threeToOne = {
@@ -88,7 +109,13 @@ class FAminoAcid {
     'Thr': 'T',
     'Trp': 'W',
     'Tyr': 'Y',
-    'Val': 'V'
+    'Val': 'V',
+    // 追加のアミノ酸やor指定など
+    'Sec': 'U',
+    'Asx': 'B',
+    'Glx': 'Z',
+    'Xaa': 'X',
+    'Xle': 'J',
   };
 
   static const Map<String, String> oneToFull = {
@@ -111,7 +138,13 @@ class FAminoAcid {
     'T': 'Threonine',
     'W': 'Tryptophan',
     'Y': 'Tyrosine',
-    'V': 'Valine'
+    'V': 'Valine',
+    // 追加のアミノ酸やor指定など
+    'U': 'Selenocysteine',
+    'B': 'Aspartic acid or Asparagine',
+    'Z': 'Glutamic acid or Glutamine',
+    'X': 'Any amino acid',
+    'J': 'Leucine or Isoleucine',
   };
 
   static const Map<String, String> oneToThree = {
@@ -134,10 +167,16 @@ class FAminoAcid {
     'T': 'Thr',
     'W': 'Trp',
     'Y': 'Tyr',
-    'V': 'Val'
+    'V': 'Val',
+    // 追加のアミノ酸やor指定など
+    'U': 'Sec',
+    'B': 'Asx',
+    'Z': 'Glx',
+    'X': 'Xaa',
+    'J': 'Xle',
   };
 
-  static const Map<String, String> enToJA = {
+  static const Map<String, String> enFullToJaFull = {
     'Alanine': 'アラニン',
     'Arginine': 'アルギニン',
     'Asparagine': 'アスパラギン',
@@ -157,10 +196,16 @@ class FAminoAcid {
     'Threonine': 'スレオニン',
     'Tryptophan': 'トリプトファン',
     'Tyrosine': 'チロシン',
-    'Valine': 'バリン'
+    'Valine': 'バリン',
+    // 追加のアミノ酸やor指定など
+    'Selenocysteine': 'セレノシステイン',
+    'Aspartic acid or Asparagine': 'アスパラギン酸またはアスパラギン',
+    'Glutamic acid or Glutamine': 'グルタミン酸またはグルタミン',
+    'Any amino acid': '任意のアミノ酸',
+    'Leucine or Isoleucine': 'ロイシンまたはイソロイシン',
   };
 
-  static const Map<String, String> jaToEnFull = {
+  static const Map<String, String> jaFullToEnFull = {
     'アラニン': 'Alanine',
     'アルギニン': 'Arginine',
     'アスパラギン': 'Asparagine',
@@ -180,6 +225,12 @@ class FAminoAcid {
     'スレオニン': 'Threonine',
     'トリプトファン': 'Tryptophan',
     'チロシン': 'Tyrosine',
-    'バリン': 'Valine'
+    'バリン': 'Valine',
+    // 追加のアミノ酸やor指定など
+    'セレノシステイン': 'Selenocysteine',
+    'アスパラギン酸またはアスパラギン': 'Aspartic acid or Asparagine',
+    'グルタミン酸またはグルタミン': 'Glutamic acid or Glutamine',
+    '任意のアミノ酸': 'Any amino acid',
+    'ロイシンまたはイソロイシン': 'Leucine or Isoleucine',
   };
 }

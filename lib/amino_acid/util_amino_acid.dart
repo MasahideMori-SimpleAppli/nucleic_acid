@@ -4,14 +4,14 @@ class UtilAminoAcid {
   /// (en) Convert full name to three-letter notation.
   ///
   /// (ja) フルネームのアミノ酸名から３文字表記に変換します。
-  static String? convertThree(String aminoAcidFullName) {
+  static String? convertFullToThree(String aminoAcidFullName) {
     return FAminoAcid.fullToThree[aminoAcidFullName];
   }
 
   /// (en) Convert full name to one-letter notation.
   ///
   /// (ja) フルネームのアミノ酸名から１文字表記に変換します。
-  static String? convertOne(String aminoAcidFullName) {
+  static String? convertFullToOne(String aminoAcidFullName) {
     return FAminoAcid.fullToOne[aminoAcidFullName];
   }
 
@@ -46,14 +46,14 @@ class UtilAminoAcid {
   /// (en) Convert english full name to japanese full name.
   ///
   /// (ja)フルネームの英語のアミノ酸名から日本語表記に変換します。
-  static String? convertJA2EN(String aminoAcidFullNameEN) {
-    return FAminoAcid.enToJA[aminoAcidFullNameEN];
+  static String? convertEN2JA(String aminoAcidFullNameEN) {
+    return FAminoAcid.enFullToJaFull[aminoAcidFullNameEN];
   }
 
   /// (en) Convert japanese full name to english full name.
   ///
   /// (ja)日本語のアミノ酸名から英語のフルネーム表記に変換します。
-  static String? convertEN2JA(String aminoAcidFullNameJA) {
-    return FAminoAcid.jaToEnFull[aminoAcidFullNameJA];
+  static String? convertJA2EN(String aminoAcidFullNameJA) {
+    return FAminoAcid.jaFullToEnFull[aminoAcidFullNameJA];
   }
 }

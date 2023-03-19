@@ -1,3 +1,1 @@
-class DNA {
-
-}
+class DNA {}
