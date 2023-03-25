@@ -1,3 +1,5 @@
+import 'package:nucleic_acid/nucleotide/enum_nucleotide_sequence_type.dart';
+
 import 'enum_base.dart';
 
 class Nucleotide {
@@ -81,4 +83,16 @@ class Nucleotide {
       }
     }
   }
+
+  /// Convert to a new complementary base.
+  /// * [type] : return base type. DNA or RNA.
+  Nucleotide complemented(EnumNucleotideSequenceType type){
+    if(type == EnumNucleotideSequenceType.dna) {
+      return Nucleotide(base.complementDNA());
+    }
+    else{
+      return Nucleotide(base.complementRNA());
+    }
+  }
+
 }
