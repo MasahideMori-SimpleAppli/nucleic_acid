@@ -30,7 +30,7 @@ class AminoAcid {
     Map<String, dynamic> d = {};
     d['class_name'] = className;
     d['version'] = version;
-    d['type'] = type;
+    d['type'] = type.name;
     d['decoration'] = decoration;
     d['replacement'] = replacement;
     d['another_name'] = anotherName;
@@ -39,7 +39,7 @@ class AminoAcid {
 
   /// resume map.
   static AminoAcid fromDict(Map<String, dynamic> src) {
-    return AminoAcid(src['type'],
+    return AminoAcid(EnumAminoAcid.values.byName(src['type']),
         decoration: src['decoration'],
         replacement: src['replacement'],
         anotherName: src['another_name']);

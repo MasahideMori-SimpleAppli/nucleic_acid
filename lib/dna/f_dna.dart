@@ -1,4 +1,5 @@
 class FDNA {
+
   static const Map<String, String> toAminoAcids = {
     'TTT': 'Phe',
     'TTC': 'Phe',

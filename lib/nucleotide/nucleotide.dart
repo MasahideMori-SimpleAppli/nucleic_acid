@@ -1,7 +1,7 @@
 import 'enum_base.dart';
 
-class Base {
-  static const String className = 'Base';
+class Nucleotide {
+  static const String className = 'Nucleotide';
   static const String version = '1';
   EnumBase base;
   Map<String, String>? decoration;
@@ -13,13 +13,12 @@ class Base {
   /// There is no fixed format. Format is free.
   /// * [replacement] : Structure replacement information.
   /// Key is target, Value is replacement object.
-  /// * [anotherName] : If there is a defined name for an amino acid with
-  /// some mutation added to a normal amino acid, it is convenient to describe it.
-  Base(this.base, {this.decoration, this.replacement, this.anotherName});
+  /// * [anotherName] : The alias.
+  Nucleotide(this.base, {this.decoration, this.replacement, this.anotherName});
 
   /// deep copy.
-  Base deepCopy() {
-    return Base(base,
+  Nucleotide deepCopy() {
+    return Nucleotide(base,
         decoration: decoration != null ? {...decoration!} : null,
         replacement: replacement != null ? {...replacement!} : null,
         anotherName: anotherName);
@@ -30,7 +29,7 @@ class Base {
     Map<String, dynamic> d = {};
     d['class_name'] = className;
     d['version'] = version;
-    d['base'] = base;
+    d['base'] = base.name;
     d['decoration'] = decoration;
     d['replacement'] = replacement;
     d['another_name'] = anotherName;
@@ -38,8 +37,8 @@ class Base {
   }
 
   /// resume map.
-  static Base fromDict(Map<String, dynamic> src) {
-    return Base(src['type'],
+  static Nucleotide fromDict(Map<String, dynamic> src) {
+    return Nucleotide(EnumBase.values.byName(src['base']),
         decoration: src['decoration'],
         replacement: src['replacement'],
         anotherName: src['another_name']);
@@ -71,12 +70,12 @@ class Base {
   /// Convert International Nucleotide Sequence Database code.
   /// Change EnumBase.u => EnumBase.t.
   /// If decoration, replacement, anotherName is not null, throw exception.
-  Base convertINSD() {
+  Nucleotide convertINSD() {
     if (decoration != null || replacement != null || anotherName != null) {
       throw Exception("Converting structures is likely to cause problems.");
     } else {
       if (base == EnumBase.u) {
-        return Base(EnumBase.t);
+        return Nucleotide(EnumBase.t);
       } else {
         return deepCopy();
       }

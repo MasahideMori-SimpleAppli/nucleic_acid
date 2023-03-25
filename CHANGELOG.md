@@ -1,8 +1,6 @@
 ## 0.0.2
 
-* Major revisions and enhancements have been made.
-* Changed to work on the basis of classes.
-* Separated utilities and fields.
+* I've made significant changes to make the specs more computationally friendly than before.
 
 ## 0.0.1
 

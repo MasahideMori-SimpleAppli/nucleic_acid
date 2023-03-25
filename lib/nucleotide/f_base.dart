@@ -1,7 +1,8 @@
 /// Some information was created with reference to:
 /// https://www.ddbj.nig.ac.jp/ddbj/code.html
 /// https://creativecommons.org/licenses/by/4.0/deed.ja
-import 'package:nucleic_acid/nucleobase/enum_base.dart';
+
+import 'enum_base.dart';
 
 class FBase {
   static const Map<String, String> oneToFull = {
@@ -31,4 +32,5 @@ class FBase {
     EnumBase.b: [EnumBase.c, EnumBase.g, EnumBase.t],
     EnumBase.n: [EnumBase.a, EnumBase.c, EnumBase.g, EnumBase.t],
   };
+
 }
