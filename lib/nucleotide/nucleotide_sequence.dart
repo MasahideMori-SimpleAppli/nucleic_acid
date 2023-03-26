@@ -80,6 +80,7 @@ class NucleotideSequence {
     return r;
   }
 
+  /// Return sequence length.
   int length() {
     return sequence.length;
   }

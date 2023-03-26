@@ -23,6 +23,7 @@ extension ExtEnumBase on EnumBase {
     }
   }
 
+  /// Converts to complementary bases in DNA.
   EnumBase complementDNA() {
     if (this == EnumBase.a) {
       return EnumBase.t;
@@ -57,6 +58,7 @@ extension ExtEnumBase on EnumBase {
     }
   }
 
+  /// Converts complementary bases in RNA.
   EnumBase complementRNA() {
     if (this == EnumBase.a) {
       return EnumBase.u;
