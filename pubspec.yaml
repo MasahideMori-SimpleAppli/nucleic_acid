@@ -1,15 +1,16 @@
 name: nucleic_acid
-description: A set of utilities and dictionaries to aid in nucleic acid analysis.
+description: A set of utilities to aid in nucleic acid analysis.
 version: 0.0.2
 repository: https://github.com/MasahideMori-SimpleAppli/nucleic_acid
 
 environment:
   sdk: '>=2.19.2 <3.0.0'
-  flutter: ">=1.17.0"
+  flutter: ">=2.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
+  collection: ^1.17.0
 
 dev_dependencies:
   flutter_test:

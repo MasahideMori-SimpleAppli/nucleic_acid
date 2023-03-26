@@ -32,5 +32,4 @@ class FBase {
     EnumBase.b: [EnumBase.c, EnumBase.g, EnumBase.t],
     EnumBase.n: [EnumBase.a, EnumBase.c, EnumBase.g, EnumBase.t],
   };
-
 }

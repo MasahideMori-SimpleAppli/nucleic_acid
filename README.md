@@ -1,17 +1,27 @@
 # nucleic_acid
 
-* This library is a version under adjustment, so it contains various problems. The stable version will be version 1 or higher.  
 (en)Japanese ver is [here](https://github.com/MasahideMori-SimpleAppli/nucleic_acid/blob/main/README_JA.md).  
 (ja)この解説の日本語版は[ここ](https://github.com/MasahideMori-SimpleAppli/nucleic_acid/blob/main/README_JA.md)にあります。
 
 ## Overview
-A set of utilities and dictionaries to aid in nucleic acid analysis.
+This is a package for nucleic acid analysis support.
 This package is made for scientists.
 
 ## Usage
 ```dart
 
-String tacg = DNA.complement("ATGC");
+NucleotideSequence gene = NucleotideSequence("attgac");
+NucleotideSequence templateDNA = gene.complemented(EnumNucleotideSequenceType.dna);
+
+// transcription
+NucleotideSequence mRNA = gene.converted(EnumNucleotideSequenceType.rna);
+NucleotideSequence tRNA = mRNA.complemented(EnumNucleotideSequenceType.rna);
+
+// translation
+AminoAcidSequence peptide = AminoAcidSequence(mRNA);
+
+// trainslation(direct)
+AminoAcidSequence peptideFromDNA = AminoAcidSequence(gene);
 
 ```
 
@@ -21,7 +31,8 @@ This package is developed by me personally, but may be supported via the company
 [SimpleAppli Inc.](https://simpleappli.com/en/index_en.html)
 
 ## About version control
-The C part will be changed at the time of version upgrade.
+The C part will be changed at the time of version upgrade.  
+However, versions less than 1.0.0 may change the file structure regardless of the following rules.  
 - Changes such as adding variables, structure change that cause problems when reading previous files.
     - C.X.X
 - Adding methods, etc.

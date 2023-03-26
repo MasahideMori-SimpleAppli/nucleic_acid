@@ -86,6 +86,10 @@ class NucleotideSequence {
     return sequence.length;
   }
 
+  /// (en)　It converts to a character string with only the base sequence(lowercase letter) and returns it.
+  /// Direction is not considered.
+  ///
+  /// (ja) 塩基配列だけの文字列（英小文字）に変換して返します。方向は考慮されません。
   String toStr() {
     String r = "";
     for (Nucleotide i in sequence) {
@@ -94,9 +98,22 @@ class NucleotideSequence {
     return r;
   }
 
+  /// (en) Gets a new array whose type has been converted.
+  /// Orientation does not change.
+  ///
+  /// (ja) 型を変換した新しい配列を取得します。向きは変化しません。
+  /// * [type] : return sequence type. DNA or RNA.
+  NucleotideSequence converted(EnumNucleotideSequenceType type) {
+    List<Nucleotide> rSeq = [];
+    for (Nucleotide i in sequence) {
+      rSeq.add(i.converted(type));
+    }
+    return NucleotideSequence.fromSeq(rSeq, type: type, direction: direction);
+  }
+
   /// (en) Get the complementary sequence.
   ///
-  /// (ja) Get the complementary sequence.
+  /// (ja) 相補的な配列を取得します。
   /// * [type] : return sequence type. DNA or RNA.
   NucleotideSequence complemented(EnumNucleotideSequenceType type) {
     List<Nucleotide> rSeq = [];

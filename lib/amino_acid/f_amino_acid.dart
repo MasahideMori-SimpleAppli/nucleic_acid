@@ -29,6 +29,8 @@ class FAminoAcid {
     'Glutamic acid or Glutamine': 'Glx',
     'Any amino acid': 'Xaa',
     'Leucine or Isoleucine': 'Xle',
+    // 終止コドン
+    'termination codon': 'TERM'
   };
 
   static const Map<String, String> fullToOne = {
@@ -87,6 +89,8 @@ class FAminoAcid {
     'Glx': 'Glutamic acid or Glutamine',
     'Xaa': 'Any amino acid',
     'Xle': 'Leucine or Isoleucine',
+    // 終止コドン
+    'TERM': 'termination codon'
   };
 
   static const Map<String, String> threeToOne = {
@@ -203,6 +207,8 @@ class FAminoAcid {
     'Glutamic acid or Glutamine': 'グルタミン酸またはグルタミン',
     'Any amino acid': '任意のアミノ酸',
     'Leucine or Isoleucine': 'ロイシンまたはイソロイシン',
+    // 終止コドン
+    'termination codon': '終止コドン'
   };
 
   static const Map<String, String> jaFullToEnFull = {
@@ -232,5 +238,6 @@ class FAminoAcid {
     'グルタミン酸またはグルタミン': 'Glutamic acid or Glutamine',
     '任意のアミノ酸': 'Any amino acid',
     'ロイシンまたはイソロイシン': 'Leucine or Isoleucine',
+    '終止コドン': 'termination codon'
   };
 }

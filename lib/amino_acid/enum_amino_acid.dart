@@ -24,6 +24,7 @@ enum EnumAminoAcid {
   Trp,
   Tyr,
   Val,
+  Stop
 }
 
 extension EXTEnumAminoAcid on EnumAminoAcid {

@@ -86,13 +86,17 @@ class Nucleotide {
 
   /// Convert to a new complementary base.
   /// * [type] : return base type. DNA or RNA.
-  Nucleotide complemented(EnumNucleotideSequenceType type){
-    if(type == EnumNucleotideSequenceType.dna) {
+  Nucleotide complemented(EnumNucleotideSequenceType type) {
+    if (type == EnumNucleotideSequenceType.dna) {
       return Nucleotide(base.complementDNA());
-    }
-    else{
+    } else {
       return Nucleotide(base.complementRNA());
     }
   }
 
+  /// Get a new Nucleotide that converted type of DNA and RNA.
+  /// * [type] : return base type. DNA or RNA.
+  Nucleotide converted(EnumNucleotideSequenceType type) {
+    return Nucleotide(base.converted(type));
+  }
 }
