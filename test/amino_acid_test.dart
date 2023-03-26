@@ -3,7 +3,6 @@ import 'package:nucleic_acid/nucleic_acid.dart';
 
 void main() {
   test('Test AminoAcid', () {
-    print("amino acid");
     AminoAcid acid = AminoAcid(EnumAminoAcid.Met);
     acid = AminoAcid.fromDict(acid.toDict());
     acid.decoration = {"test": "a"};

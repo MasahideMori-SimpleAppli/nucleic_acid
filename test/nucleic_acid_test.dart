@@ -3,7 +3,6 @@ import 'package:nucleic_acid/nucleic_acid.dart';
 
 void main() {
   test('Test NucleotideSequence', () {
-    print("NucleotideSequence");
     NucleotideSequence gene = NucleotideSequence("attgac");
     expect(gene.toStr() == "attgac", true);
     expect(gene.direction == EnumNucleotideSequenceDirection.fiveToThree, true);
@@ -35,7 +34,6 @@ void main() {
     expect(resumed.type == EnumNucleotideSequenceType.rna, true);
 
     // translation
-    print("translation AminoAcidSequence");
     AminoAcidSequence peptide = AminoAcidSequence(mRNA);
     expect(peptide.toStr() == "ID", true);
     peptide = AminoAcidSequence.fromDict(peptide.toDict());
