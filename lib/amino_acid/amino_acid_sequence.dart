@@ -1,6 +1,4 @@
-import 'package:nucleic_acid/amino_acid/enum_amino_acid_sequence_direction.dart';
 import 'package:nucleic_acid/nucleic_acid.dart';
-import 'package:nucleic_acid/nucleotide/enum_nucleotide_sequence_direction.dart';
 
 class AminoAcidSequence {
   static const String className = 'AminoAcidSequence';

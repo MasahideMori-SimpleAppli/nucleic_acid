@@ -1,8 +1,5 @@
 import 'package:nucleic_acid/nucleic_acid.dart';
-import 'package:nucleic_acid/nucleotide/enum_nucleotide_sequence_type.dart';
 
-import '../nucleotide/f_dna.dart';
-import '../nucleotide/f_rna.dart';
 import 'package:collection/collection.dart';
 
 class UtilAminoAcid {
