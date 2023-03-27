@@ -13,15 +13,26 @@ This package is made for scientists.
 NucleotideSequence gene = NucleotideSequence("attgac");
 NucleotideSequence templateDNA = gene.complemented(EnumNucleotideSequenceType.dna);
 
-// transcription
+// Transcription
 NucleotideSequence mRNA = gene.converted(EnumNucleotideSequenceType.rna);
 NucleotideSequence tRNA = mRNA.complemented(EnumNucleotideSequenceType.rna);
 
-// translation
+// Translation
 AminoAcidSequence peptide = AminoAcidSequence(mRNA);
 
-// trainslation(direct)
+// Translation(direct)
 AminoAcidSequence peptideFromDNA = AminoAcidSequence(gene);
+
+// Extension
+// attgacattgac
+NucleotideSequence gene2 = gene + gene;
+// attgaccagtta
+NucleotideSequence gene3 = gene + gene.reversed();
+// attgacattgac
+gene.add(gene.reversed(), useDirection: true);
+
+// Copy
+NucleotideSequence geneCopy = gene.deepCopy();
 
 ```
 

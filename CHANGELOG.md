@@ -1,3 +1,7 @@
+## 0.0.4
+
+* Added add method and + operator to NucleotideSequence and AminoAcidSequence.
+
 ## 0.0.3
 
 * Updated description.

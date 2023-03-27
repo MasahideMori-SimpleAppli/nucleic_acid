@@ -93,13 +93,38 @@ class AminoAcidSequence {
   }
 
   /// (en) Returns text written in single letter(uppercase letter) notation.
+  /// Direction is not considered.
   ///
-  /// (ja) 一文字表記（英大文字）で記述したテキストを返します。
+  /// (ja) 一文字表記（英大文字）で記述したテキストを返します。方向は考慮されません。
   String toStr() {
     String r = "";
     for (final i in sequence) {
       r += i.type.toOneStr();
     }
+    return r;
+  }
+
+  /// (en) Combines this AminoAcidSequence with another AminoAcidSequence.
+  ///
+  /// (ja) このAminoAcidSequenceに別のAminoAcidSequenceを結合します。
+  /// * [seq] : The other sequence.
+  /// * [useDirection] : If true, The direction is taken into account,
+  /// if it's the opposite direction, it flips the other array and then joins it.
+  void add(AminoAcidSequence seq, {bool useDirection = true}) {
+    if (useDirection) {
+      if ((direction == seq.direction)) {
+        sequence.addAll(seq.sequence);
+      } else {
+        sequence.addAll(seq.sequence.reversed);
+      }
+    } else {
+      sequence.addAll(seq.sequence);
+    }
+  }
+
+  AminoAcidSequence operator +(AminoAcidSequence seq) {
+    AminoAcidSequence r = deepCopy();
+    r.add(seq, useDirection: false);
     return r;
   }
 }

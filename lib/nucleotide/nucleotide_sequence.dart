@@ -140,4 +140,28 @@ class NucleotideSequence {
     r.direction = r.direction.reversed();
     return r;
   }
+
+  /// (en) Combines this NucleotideSequence with another NucleotideSequence.
+  ///
+  /// (ja) このNucleotideSequenceに別のNucleotideSequenceを結合します。
+  /// * [seq] : The other sequence.
+  /// * [useDirection] : If true, The direction is taken into account,
+  /// if it's the opposite direction, it flips the other array and then joins it.
+  void add(NucleotideSequence seq, {bool useDirection = true}) {
+    if (useDirection) {
+      if ((direction == seq.direction)) {
+        sequence.addAll(seq.sequence);
+      } else {
+        sequence.addAll(seq.sequence.reversed);
+      }
+    } else {
+      sequence.addAll(seq.sequence);
+    }
+  }
+
+  NucleotideSequence operator +(NucleotideSequence seq) {
+    NucleotideSequence r = deepCopy();
+    r.add(seq, useDirection: false);
+    return r;
+  }
 }
