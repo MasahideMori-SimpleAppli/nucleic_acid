@@ -5,4 +5,8 @@ export 'f_base.dart';
 export 'f_dna.dart';
 export 'f_rna.dart';
 export 'nucleotide.dart';
+export 'nucleotide_info.dart';
 export 'nucleotide_sequence.dart';
+export 'util_compare_nucleotide.dart';
+export 'util_nucleotide_search_pattern.dart';
+export 'util_nucleotide_search_repeat.dart';

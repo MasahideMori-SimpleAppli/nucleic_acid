@@ -34,7 +34,52 @@ gene.add(gene.reversed(), useDirection: true);
 // Copy
 NucleotideSequence geneCopy = gene.deepCopy();
 
+// Get sub sequence
+NucleotideSequence gac = NucleotideSequence("attgac").subSeq(3);
 ```
+
+### File format conversion
+```dart
+    // FASTA
+    String fastaContent = '>sequence1\n';
+    String seq1 = 'ATGCAGTAGCTAGCTACGT';
+    fastaContent += "$seq1\n";
+    fastaContent += '>sequence2\n';
+    String seq2 = 'CGTAGCTAGCTAGCATCGT';
+    fastaContent += "$seq2\n";
+    List<NucleotideSequence> nSeq = UtilFasta.read(fastaContent);
+    String reConvertFasta = UtilFasta.write(nSeq[0], "sequence1");
+```
+
+### Array search
+```dart
+    // Search ecoRI position
+    final NucleotideSequence seq =
+        NucleotideSequence('ATGAATTCAGAATTCTATATATATATACC'.toLowerCase());
+    final NucleotideSequence ecoRI = NucleotideSequence('GAATTC'.toLowerCase());
+    // get 2 and 9.
+    List<int> ecoRIPositions = UtilNucleotideSearchPattern.getPositions(seq, ecoRI, true);
+    
+    // Searching for tandem repeats
+    // get tRepeat[0][0] = 15 (start position), tRepeat[0][1] = 27 (end position).
+    List<List<int>> tRepeat = UtilNucleotideSearchRepeat.tandemRepeat(seq, 2, 2, true);
+```
+
+## About the data structure (decoded state)
+The basic data structure (NucleotideSequence class) in this package is as follows.
+- NucleotideSequence
+  - sequence: List
+    - nucleotide: Nucleotide
+      - base: EnumBase, The type of base.
+      - infoKey: String?, NucleotideInfo key that can be used when considering chemical modification.
+  - type: EnumNucleotideSequenceType, DNA or RNA.
+  - direction: EnumNucleotideSequenceDirection, The direction of sequence。
+  - id: String?, The serial ID of this sequence。
+  - description: String?, The description of this sequence。
+  - info: Map<String, dynamic>?, The other data of this sequence。
+  - nucleotideInfo: Map<String, NucleotideInfo>?, Reference for detailed information about the nucleotides in this sequence.
+    - key: String, A reference key that a Nucleotide has. For example, aliases when chemically decorated.
+    - value: NucleotideInfo, Information such as chemical modification of Nucleotide.
 
 ## Support
 If you need paid support for any reason, please contact my company.  

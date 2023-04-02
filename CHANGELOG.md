@@ -1,3 +1,11 @@
+## 0.0.6
+* Revised data structure. Reduced memory usage and storage size.
+* Fixed missing references.
+* Added FASTA format converter. 
+* Added sequence search utils.
+* Added subSeq and subSeqNonInfo to NucleotideSequence and AminoAcidSequence.
+* Fixed description.
+
 ## 0.0.5
 * Revised data structure. Reduced memory usage and storage size.
 

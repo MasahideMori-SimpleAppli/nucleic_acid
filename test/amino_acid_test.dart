@@ -5,8 +5,9 @@ void main() {
   test('Test AminoAcid', () {
     AminoAcid acid = AminoAcid(EnumAminoAcid.Met);
     acid = AminoAcid.fromDict(acid.toDict());
-    acid.decoration = {"test": "a"};
+    acid.infoKey = "non chemical modification";
     acid = AminoAcid.fromDict(acid.toDict());
+    expect(acid.infoKey == "non chemical modification", true);
     expect(EXTEnumAminoAcid.fromJAStr("メチオニン") == acid.type, true);
     expect(EXTEnumAminoAcid.fromFullStr("Methionine") == acid.type, true);
     expect(UtilAminoAcid.convertFullToOne("Methionine") == "M", true);

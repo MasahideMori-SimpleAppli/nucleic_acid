@@ -25,4 +25,7 @@ void main() async {
 
   // Copy(複製)
   NucleotideSequence geneCopy = gene.deepCopy();
+
+  // Get sub sequence（部分的な取り出し）
+  NucleotideSequence gac = NucleotideSequence("attgac").subSeq(3);
 }

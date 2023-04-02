@@ -1,3 +1,4 @@
+import 'package:nucleic_acid/amino_acid/amino_acid_info.dart';
 import 'package:nucleic_acid/nucleic_acid.dart';
 
 class AminoAcidSequence {
@@ -10,13 +11,16 @@ class AminoAcidSequence {
   late EnumAminoAcidSequenceDirection direction;
   String? description;
   Map<String, dynamic>? info;
+  Map<String, AminoAcidInfo>? aminoAcidInfo;
 
   /// * [seq] : The mRNA sequence.
   /// * [direction] : sequence direction. 5'to3' or 3'to5' for mRNA sequence.
   /// This value is reversed for complemented objects.
   /// * [description] : The description of this sequence.
   /// * [info] : Other information of this sequence.
-  AminoAcidSequence(NucleotideSequence seq, {this.description, this.info}) {
+  /// * [aminoAcidInfo] : Reference for information by AminoAcid.
+  AminoAcidSequence(NucleotideSequence seq,
+      {this.description, this.info, this.aminoAcidInfo}) {
     sequence = UtilAminoAcid.convertAminoAcidList(seq);
     if (seq.direction == EnumNucleotideSequenceDirection.fiveToThree) {
       direction = EnumAminoAcidSequenceDirection.nToC;
@@ -29,7 +33,8 @@ class AminoAcidSequence {
   AminoAcidSequence.fromSeq(this.sequence,
       {this.direction = EnumAminoAcidSequenceDirection.nToC,
       this.description,
-      this.info});
+      this.info,
+      this.aminoAcidInfo});
 
   /// deep copy.
   AminoAcidSequence deepCopy() {
@@ -37,10 +42,18 @@ class AminoAcidSequence {
     for (AminoAcid i in sequence) {
       copySeq.add(i.deepCopy());
     }
+    Map<String, AminoAcidInfo>? copyAAInfo;
+    if (aminoAcidInfo != null) {
+      copyAAInfo = {};
+      for (String i in aminoAcidInfo!.keys) {
+        copyAAInfo[i] = aminoAcidInfo![i]!.deepCopy();
+      }
+    }
     return AminoAcidSequence.fromSeq(copySeq,
         direction: direction,
         description: description,
-        info: info != null ? {...info!} : null);
+        info: info != null ? {...info!} : null,
+        aminoAcidInfo: copyAAInfo);
   }
 
   /// to map.
@@ -56,16 +69,32 @@ class AminoAcidSequence {
     d['direction'] = direction.name;
     d['description'] = description;
     d['info'] = info;
+    Map<String, Map<String, dynamic>>? saveAAInfo;
+    if (aminoAcidInfo != null) {
+      saveAAInfo = {};
+      for (String i in aminoAcidInfo!.keys) {
+        saveAAInfo[i] = aminoAcidInfo![i]!.toDict();
+      }
+    }
+    d['aminoAcidInfo'] = saveAAInfo;
     return d;
   }
 
   /// resume map.
   static AminoAcidSequence fromDict(Map<String, dynamic> src) {
+    Map<String, AminoAcidInfo>? loadAAInfo;
+    if (src['aminoAcidInfo'] != null) {
+      loadAAInfo = {};
+      for (String i in (src['aminoAcidInfo'] as Map).keys) {
+        loadAAInfo[i] = AminoAcidInfo.fromDict(src['aminoAcidInfo'][i]);
+      }
+    }
     AminoAcidSequence r = AminoAcidSequence.fromSeq([],
         direction:
             EnumAminoAcidSequenceDirection.values.byName(src['direction']),
         description: src['description'],
-        info: src['info']);
+        info: src['info'],
+        aminoAcidInfo: loadAAInfo);
     List<AminoAcid> seq = [];
     for (final i in src['sequence']) {
       seq.add(AminoAcid.fromDict(i));
@@ -74,17 +103,17 @@ class AminoAcidSequence {
     return r;
   }
 
-  /// (en) Reverses the order of bases in this NucleotideSequence.
+  /// (en) Reverses the order of bases in this Sequence.
   ///
-  /// (ja) このNucleotideSequenceの塩基の順序を反転します。
+  /// (ja) このSequenceの塩基の順序を反転します。
   void reverse() {
     sequence = sequence.reversed.toList();
     direction = direction.reversed();
   }
 
-  ///　(en) Gets a new reversed NucleotideSequence.
+  ///　(en) Gets a new reversed Sequence.
   ///
-  /// (ja) 反転した新しいNucleotideSequenceを取得します。
+  /// (ja) 反転した新しいSequenceを取得します。
   AminoAcidSequence reversed() {
     AminoAcidSequence r = deepCopy();
     r.sequence = r.sequence.reversed.toList();
@@ -102,6 +131,51 @@ class AminoAcidSequence {
       r += i.type.toOneStr();
     }
     return r;
+  }
+
+  ///　(en) Get a partial sequence. Data other than sequence are copied.
+  ///
+  /// (ja) 部分的なシーケンスを取得します。sequence以外のデータについてはコピーされます。
+  /// * [startIndex] : Copy start index.
+  /// * [endIndex] : Copy end index. Works the same as list.sublist.
+  AminoAcidSequence subSeq(int startIndex, [int? endIndex]) {
+    List<AminoAcid> copySeq = [];
+    for (AminoAcid i in sequence.sublist(startIndex, endIndex)) {
+      copySeq.add(i.deepCopy());
+    }
+    Map<String, AminoAcidInfo>? copyAAInfo;
+    if (aminoAcidInfo != null) {
+      copyAAInfo = {};
+      for (String i in aminoAcidInfo!.keys) {
+        copyAAInfo[i] = aminoAcidInfo![i]!.deepCopy();
+      }
+    }
+    return AminoAcidSequence.fromSeq(copySeq,
+        direction: direction,
+        description: description,
+        info: info != null ? {...info!} : null,
+        aminoAcidInfo: copyAAInfo);
+  }
+
+  ///　(en) Get a partial sequence. Data other than sequence are not copied.
+  /// Use this when speed is a priority.
+  /// return info and aminoAcidInfo will be null.
+  ///
+  /// (ja) 部分的なシーケンスを取得します。sequence以外のデータについてはコピーされません。
+  /// これは速度が優先される場合に利用します。
+  /// 戻り値のinfoとaminoAcidInfoはnullになります。
+  /// * [startIndex] : Copy start index.
+  /// * [endIndex] : Copy end index. Works the same as list.sublist.
+  AminoAcidSequence subSeqNonInfo(int startIndex, [int? endIndex]) {
+    List<AminoAcid> copySeq = [];
+    for (AminoAcid i in sequence.sublist(startIndex, endIndex)) {
+      copySeq.add(i.deepCopy());
+    }
+    return AminoAcidSequence.fromSeq(copySeq,
+        direction: direction,
+        description: description,
+        info: null,
+        aminoAcidInfo: null);
   }
 
   /// (en) Combines this AminoAcidSequence with another AminoAcidSequence.

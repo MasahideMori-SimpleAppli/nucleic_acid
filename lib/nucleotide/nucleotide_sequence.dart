@@ -1,5 +1,4 @@
 import 'package:nucleic_acid/nucleic_acid.dart';
-import 'package:nucleic_acid/nucleotide/nucleotide_info.dart';
 
 class NucleotideSequence {
   static const String className = 'NucleotideSequence';
@@ -8,6 +7,7 @@ class NucleotideSequence {
   late List<Nucleotide> sequence = [];
   EnumNucleotideSequenceType type;
   EnumNucleotideSequenceDirection direction;
+  String? id;
   String? description;
   Map<String, dynamic>? info;
   Map<String, NucleotideInfo>? nucleotideInfo;
@@ -15,6 +15,7 @@ class NucleotideSequence {
   /// * [seqStr] : The base sequence. Only lowercase letters are allowed.
   /// Give the result of running toLowerCase() if it contains uppercase letters.
   /// * [type] : DNA or RNA.
+  /// * [id] : This sequence id.
   /// * [direction] : sequence direction. 5'to3' or 3'to5'.
   /// This value is reversed for complemented objects.
   /// * [description] : The description of this sequence.
@@ -22,6 +23,7 @@ class NucleotideSequence {
   /// * [nucleotideInfo] : Reference for information by nucleotide.
   NucleotideSequence(String seqStr,
       {this.type = EnumNucleotideSequenceType.dna,
+      this.id,
       this.direction = EnumNucleotideSequenceDirection.fiveToThree,
       this.description,
       this.info,
@@ -34,6 +36,7 @@ class NucleotideSequence {
   /// Generate from sequence data.
   NucleotideSequence.fromSeq(this.sequence,
       {this.type = EnumNucleotideSequenceType.dna,
+      this.id,
       this.direction = EnumNucleotideSequenceDirection.fiveToThree,
       this.description,
       this.info,
@@ -54,6 +57,7 @@ class NucleotideSequence {
     }
     return NucleotideSequence.fromSeq(copySeq,
         type: type,
+        id: id,
         direction: direction,
         description: description,
         info: info != null ? {...info!} : null,
@@ -71,6 +75,7 @@ class NucleotideSequence {
     }
     d['sequence'] = seqList;
     d['type'] = type.name;
+    d['id'] = id;
     d['direction'] = direction.name;
     d['description'] = description;
     d['info'] = info;
@@ -81,7 +86,7 @@ class NucleotideSequence {
         saveNInfo[i] = nucleotideInfo![i]!.toDict();
       }
     }
-    d['nucleotideInfo'] = nucleotideInfo;
+    d['nucleotideInfo'] = saveNInfo;
     return d;
   }
 
@@ -96,6 +101,7 @@ class NucleotideSequence {
     }
     NucleotideSequence r = NucleotideSequence("",
         type: EnumNucleotideSequenceType.values.byName(src['type']),
+        id: src['id'],
         direction:
             EnumNucleotideSequenceDirection.values.byName(src['direction']),
         description: src['description'],
@@ -156,22 +162,71 @@ class NucleotideSequence {
         type: type, direction: direction.reversed());
   }
 
-  /// (en) Reverses the order of bases in this NucleotideSequence.
+  /// (en) Reverses the order of bases in this Sequence.
   ///
-  /// (ja) このNucleotideSequenceの塩基の順序を反転します。
+  /// (ja) このSequenceの塩基の順序を反転します。
   void reverse() {
     sequence = sequence.reversed.toList();
     direction = direction.reversed();
   }
 
-  ///　(en) Gets a new reversed NucleotideSequence.
+  ///　(en) Gets a new reversed Sequence.
   ///
-  /// (ja) 反転した新しいNucleotideSequenceを取得します。
+  /// (ja) 反転した新しいSequenceを取得します。
   NucleotideSequence reversed() {
     NucleotideSequence r = deepCopy();
     r.sequence = r.sequence.reversed.toList();
     r.direction = r.direction.reversed();
     return r;
+  }
+
+  ///　(en) Get a partial sequence. Data other than seq are copied.
+  ///
+  /// (ja) 部分的なシーケンスを取得します。seq以外のデータについてはコピーされます。
+  /// * [startIndex] : Copy start index.
+  /// * [endIndex] : Copy end index. Works the same as list.sublist.
+  NucleotideSequence subSeq(int startIndex, [int? endIndex]) {
+    List<Nucleotide> copySeq = [];
+    for (Nucleotide i in sequence.sublist(startIndex, endIndex)) {
+      copySeq.add(i.deepCopy());
+    }
+    Map<String, NucleotideInfo>? copyNInfo;
+    if (nucleotideInfo != null) {
+      copyNInfo = {};
+      for (String i in nucleotideInfo!.keys) {
+        copyNInfo[i] = nucleotideInfo![i]!.deepCopy();
+      }
+    }
+    return NucleotideSequence.fromSeq(copySeq,
+        type: type,
+        id: id,
+        direction: direction,
+        description: description,
+        info: info != null ? {...info!} : null,
+        nucleotideInfo: copyNInfo);
+  }
+
+  ///　(en) Get a partial sequence. Data other than seq are not copied.
+  /// Use this when speed is a priority.(e.g. UtilCompareNucleotide.compareBase)
+  /// return info and nucleotideInfo will be null.
+  ///
+  /// (ja) 部分的なシーケンスを取得します。seq以外のデータについてはコピーされません。
+  /// これは速度が優先される場合に利用します。(例： UtilCompareNucleotide.compareBase)
+  /// 戻り値のinfoとnucleotideInfoはnullになります。
+  /// * [startIndex] : Copy start index.
+  /// * [endIndex] : Copy end index. Works the same as list.sublist.
+  NucleotideSequence subSeqNonInfo(int startIndex, [int? endIndex]) {
+    List<Nucleotide> copySeq = [];
+    for (Nucleotide i in sequence.sublist(startIndex, endIndex)) {
+      copySeq.add(i.deepCopy());
+    }
+    return NucleotideSequence.fromSeq(copySeq,
+        type: type,
+        id: id,
+        direction: direction,
+        description: description,
+        info: null,
+        nucleotideInfo: null);
   }
 
   /// (en) Combines this NucleotideSequence with another NucleotideSequence.
