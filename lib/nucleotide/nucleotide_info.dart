@@ -1,25 +1,21 @@
-import 'package:nucleic_acid/amino_acid/enum_amino_acid.dart';
-
-class AminoAcid {
-  static const String className = 'AminoAcid';
+class NucleotideInfo {
+  static const String className = 'NucleotideInfo';
   static const String version = '1';
-  EnumAminoAcid type;
+
   Map<String, String>? decoration;
   Map<String, String>? replacement;
   String? anotherName;
 
-  /// * [type] : The amino acid type.
   /// * [decoration] : Surface decoration. Key is target, Value is decorate object.
   /// There is no fixed format. Format is free.
   /// * [replacement] : Structure replacement information.
   /// Key is target, Value is replacement object.
-  /// * [anotherName] : If there is a defined name for an amino acid with
-  /// some mutation added to a normal amino acid, it is convenient to describe it.
-  AminoAcid(this.type, {this.decoration, this.replacement, this.anotherName});
+  /// * [anotherName] : The alias.
+  NucleotideInfo({this.decoration, this.replacement, this.anotherName});
 
   /// deep copy.
-  AminoAcid deepCopy() {
-    return AminoAcid(type,
+  NucleotideInfo deepCopy() {
+    return NucleotideInfo(
         decoration: decoration != null ? {...decoration!} : null,
         replacement: replacement != null ? {...replacement!} : null,
         anotherName: anotherName);
@@ -30,7 +26,6 @@ class AminoAcid {
     Map<String, dynamic> d = {};
     d['className'] = className;
     d['version'] = version;
-    d['type'] = type.name;
     d['decoration'] = decoration;
     d['replacement'] = replacement;
     d['anotherName'] = anotherName;
@@ -38,8 +33,8 @@ class AminoAcid {
   }
 
   /// resume map.
-  static AminoAcid fromDict(Map<String, dynamic> src) {
-    return AminoAcid(EnumAminoAcid.values.byName(src['type']),
+  static NucleotideInfo fromDict(Map<String, dynamic> src) {
+    return NucleotideInfo(
         decoration: src['decoration'],
         replacement: src['replacement'],
         anotherName: src['anotherName']);

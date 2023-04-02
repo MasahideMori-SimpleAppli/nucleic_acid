@@ -1,3 +1,6 @@
+## 0.0.5
+* Revised data structure. Reduced memory usage and storage size.
+
 ## 0.0.4
 
 * Added add method and + operator to NucleotideSequence and AminoAcidSequence.

@@ -6,44 +6,32 @@ class Nucleotide {
   static const String className = 'Nucleotide';
   static const String version = '1';
   EnumBase base;
-  Map<String, String>? decoration;
-  Map<String, String>? replacement;
-  String? anotherName;
+  String? infoKey;
 
   /// * [base] : The base type.
-  /// * [decoration] : Surface decoration. Key is target, Value is decorate object.
-  /// There is no fixed format. Format is free.
-  /// * [replacement] : Structure replacement information.
-  /// Key is target, Value is replacement object.
-  /// * [anotherName] : The alias.
-  Nucleotide(this.base, {this.decoration, this.replacement, this.anotherName});
+  /// * [infoKey] : This nucleotide information key.
+  /// The data are stored in nucleotide sequence classes and referenced by this key.
+  Nucleotide(this.base, {this.infoKey});
 
   /// deep copy.
   Nucleotide deepCopy() {
-    return Nucleotide(base,
-        decoration: decoration != null ? {...decoration!} : null,
-        replacement: replacement != null ? {...replacement!} : null,
-        anotherName: anotherName);
+    return Nucleotide(base, infoKey: infoKey);
   }
 
   /// to map.
   Map<String, dynamic> toDict() {
     Map<String, dynamic> d = {};
-    d['class_name'] = className;
+    d['className'] = className;
     d['version'] = version;
     d['base'] = base.name;
-    d['decoration'] = decoration;
-    d['replacement'] = replacement;
-    d['another_name'] = anotherName;
+    d['infoKey'] = infoKey;
     return d;
   }
 
   /// resume map.
   static Nucleotide fromDict(Map<String, dynamic> src) {
     return Nucleotide(EnumBase.values.byName(src['base']),
-        decoration: src['decoration'],
-        replacement: src['replacement'],
-        anotherName: src['another_name']);
+        infoKey: src['infoKey']);
   }
 
   /// If the base contained purine, return true.
@@ -71,9 +59,9 @@ class Nucleotide {
 
   /// Convert International Nucleotide Sequence Database code.
   /// Change EnumBase.u => EnumBase.t.
-  /// If decoration, replacement, anotherName is not null, throw exception.
+  /// If infoKey is not null, throw exception.
   Nucleotide convertINSD() {
-    if (decoration != null || replacement != null || anotherName != null) {
+    if (infoKey != null) {
       throw Exception("Converting structures is likely to cause problems.");
     } else {
       if (base == EnumBase.u) {

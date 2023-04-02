@@ -1,6 +1,6 @@
 name: nucleic_acid
 description: This is a package for nucleic acid analysis support. This package is made for scientists.
-version: 0.0.4
+version: 0.0.5
 repository: https://github.com/MasahideMori-SimpleAppli/nucleic_acid
 
 environment:

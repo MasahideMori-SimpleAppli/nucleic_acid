@@ -1,4 +1,5 @@
 import 'package:nucleic_acid/nucleic_acid.dart';
+import 'package:nucleic_acid/nucleotide/nucleotide_info.dart';
 
 class NucleotideSequence {
   static const String className = 'NucleotideSequence';
@@ -9,6 +10,7 @@ class NucleotideSequence {
   EnumNucleotideSequenceDirection direction;
   String? description;
   Map<String, dynamic>? info;
+  Map<String, NucleotideInfo>? nucleotideInfo;
 
   /// * [seqStr] : The base sequence. Only lowercase letters are allowed.
   /// Give the result of running toLowerCase() if it contains uppercase letters.
@@ -17,11 +19,13 @@ class NucleotideSequence {
   /// This value is reversed for complemented objects.
   /// * [description] : The description of this sequence.
   /// * [info] : Other information of this sequence.
+  /// * [nucleotideInfo] : Reference for information by nucleotide.
   NucleotideSequence(String seqStr,
       {this.type = EnumNucleotideSequenceType.dna,
       this.direction = EnumNucleotideSequenceDirection.fiveToThree,
       this.description,
-      this.info}) {
+      this.info,
+      this.nucleotideInfo}) {
     for (String baseName in seqStr.split('')) {
       sequence.add(Nucleotide(EnumBase.values.byName(baseName)));
     }
@@ -32,7 +36,8 @@ class NucleotideSequence {
       {this.type = EnumNucleotideSequenceType.dna,
       this.direction = EnumNucleotideSequenceDirection.fiveToThree,
       this.description,
-      this.info});
+      this.info,
+      this.nucleotideInfo});
 
   /// deep copy.
   NucleotideSequence deepCopy() {
@@ -40,17 +45,25 @@ class NucleotideSequence {
     for (Nucleotide i in sequence) {
       copySeq.add(i.deepCopy());
     }
+    Map<String, NucleotideInfo>? copyNInfo;
+    if (nucleotideInfo != null) {
+      copyNInfo = {};
+      for (String i in nucleotideInfo!.keys) {
+        copyNInfo[i] = nucleotideInfo![i]!.deepCopy();
+      }
+    }
     return NucleotideSequence.fromSeq(copySeq,
         type: type,
         direction: direction,
         description: description,
-        info: info != null ? {...info!} : null);
+        info: info != null ? {...info!} : null,
+        nucleotideInfo: copyNInfo);
   }
 
   /// to map.
   Map<String, dynamic> toDict() {
     Map<String, dynamic> d = {};
-    d['class_name'] = className;
+    d['className'] = className;
     d['version'] = version;
     List<Map<String, dynamic>> seqList = [];
     for (Nucleotide i in sequence) {
@@ -61,17 +74,33 @@ class NucleotideSequence {
     d['direction'] = direction.name;
     d['description'] = description;
     d['info'] = info;
+    Map<String, Map<String, dynamic>>? saveNInfo;
+    if (nucleotideInfo != null) {
+      saveNInfo = {};
+      for (String i in nucleotideInfo!.keys) {
+        saveNInfo[i] = nucleotideInfo![i]!.toDict();
+      }
+    }
+    d['nucleotideInfo'] = nucleotideInfo;
     return d;
   }
 
   /// resume map.
   static NucleotideSequence fromDict(Map<String, dynamic> src) {
+    Map<String, NucleotideInfo>? loadNInfo;
+    if (src['nucleotideInfo'] != null) {
+      loadNInfo = {};
+      for (String i in (src['nucleotideInfo'] as Map).keys) {
+        loadNInfo[i] = NucleotideInfo.fromDict(src['nucleotideInfo'][i]);
+      }
+    }
     NucleotideSequence r = NucleotideSequence("",
         type: EnumNucleotideSequenceType.values.byName(src['type']),
         direction:
             EnumNucleotideSequenceDirection.values.byName(src['direction']),
         description: src['description'],
-        info: src['info']);
+        info: src['info'],
+        nucleotideInfo: loadNInfo);
     List<Nucleotide> seq = [];
     for (final i in src['sequence']) {
       seq.add(Nucleotide.fromDict(i));
@@ -99,8 +128,10 @@ class NucleotideSequence {
 
   /// (en) Gets a new array whose type has been converted.
   /// Orientation does not change.
+  /// Also, nucleotideInfo is returned as empty.
   ///
   /// (ja) 型を変換した新しい配列を取得します。向きは変化しません。
+  /// また、nucleotideInfoは空のものが返されます。
   /// * [type] : return sequence type. DNA or RNA.
   NucleotideSequence converted(EnumNucleotideSequenceType type) {
     List<Nucleotide> rSeq = [];
@@ -111,8 +142,10 @@ class NucleotideSequence {
   }
 
   /// (en) Get the complementary sequence.
+  /// Also, nucleotideInfo is returned as empty.
   ///
   /// (ja) 相補的な配列を取得します。
+  /// また、nucleotideInfoは空のものが返されます。
   /// * [type] : return sequence type. DNA or RNA.
   NucleotideSequence complemented(EnumNucleotideSequenceType type) {
     List<Nucleotide> rSeq = [];

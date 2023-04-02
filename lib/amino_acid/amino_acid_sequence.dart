@@ -46,7 +46,7 @@ class AminoAcidSequence {
   /// to map.
   Map<String, dynamic> toDict() {
     Map<String, dynamic> d = {};
-    d['class_name'] = className;
+    d['className'] = className;
     d['version'] = version;
     List<Map<String, dynamic>> seqList = [];
     for (AminoAcid i in sequence) {
