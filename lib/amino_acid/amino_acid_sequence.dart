@@ -1,4 +1,3 @@
-import 'package:nucleic_acid/amino_acid/amino_acid_info.dart';
 import 'package:nucleic_acid/nucleic_acid.dart';
 
 class AminoAcidSequence {
