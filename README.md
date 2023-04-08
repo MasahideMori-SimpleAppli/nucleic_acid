@@ -77,12 +77,12 @@ NucleotideSequence gac = NucleotideSequence("attgac").subSeq(3);
 ```
 
 ## About the data structure (decoded state)
-The basic data structure (NucleotideSequence class) in this package is as follows.
+The basic data structure in this package is as follows.
 - NucleotideSequence
   - sequence: List
     - nucleotide: Nucleotide
       - base: EnumBase, The type of base.
-      - infoKey: String?, NucleotideInfo key that can be used when considering chemical modification.
+      - infoKey: String?, nucleotideInfo key that can be used when considering chemical modification.
   - type: EnumNucleotideSequenceType, DNA or RNA.
   - direction: EnumNucleotideSequenceDirection, The direction of sequence。
   - id: String?, The serial ID of this sequence。
@@ -91,6 +91,19 @@ The basic data structure (NucleotideSequence class) in this package is as follow
   - nucleotideInfo: Map<String, NucleotideInfo>?, Reference for detailed information about the nucleotides in this sequence.
     - key: String, A reference key that a Nucleotide has. For example, aliases when chemically decorated.
     - value: NucleotideInfo, Information such as chemical modification of Nucleotide.
+
+- AminoAcidSequence
+  - sequence: List
+    - nucleotide: AminoAcid
+      - type: EnumAminoAcid, The type of amino acid。
+      - infoKey: String?, aminoAcidInfo key that can be used when considering chemical modification.
+  - direction: EnumAminoAcidSequenceDirection, The direction of sequence。
+  - id: String?, The serial ID of this sequence。
+  - description: String?, The description of this sequence。
+  - info: Map<String, dynamic>?, The other data of this sequence。
+  - aminoAcidInfo: Map<String, NucleotideInfo>?, Reference for detailed information about the AminoAcids in this sequence.
+    - key: String, A reference key that a AminoAcid has. For example, aliases when chemically decorated.
+    - value: AminoAcidInfo, Information such as chemical modification of AminoAcid.
 
 ## Support
 If you need paid support for any reason, please contact my company.  

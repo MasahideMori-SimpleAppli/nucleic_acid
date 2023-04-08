@@ -76,7 +76,7 @@ NucleotideSequence gac = NucleotideSequence("attgac").subSeq(3);
 ```
 
 ## データ構造について (デコードされた状態)
-このパッケージにおける基本的なデータ構造(NucleotideSequenceクラス)は以下の通りです。
+このパッケージにおける基本的なデータ構造は以下の通りです。
 - NucleotideSequence
   - sequence: List
     - nucleotide: Nucleotide
@@ -89,7 +89,20 @@ NucleotideSequence gac = NucleotideSequence("attgac").subSeq(3);
   - info: Map<String, dynamic>?, このシーケンスに関するその他の情報。
   - nucleotideInfo: Map<String, NucleotideInfo>?, このシーケンスのヌクレオチドについての詳細な情報の参照先。
     - key: String, Nucleotideが持つ参照用のキー。例えば、化学装飾された場合の別名など。
-    - value: NucleotideInfo, Nucleotideに関する化学修飾などの情報。
+    - value: NucleotideInfo, Nucleotideに関する化学修飾などの情報。  
+  
+- AminoAcidSequence
+  - sequence: List
+    - nucleotide: AminoAcid
+      - type: EnumAminoAcid, アミノ酸の種類。
+      - infoKey: String?, 化学修飾などを考慮する場合に利用できる、aminoAcidInfoのキー。
+  - direction: EnumAminoAcidSequenceDirection, 配列の方向。
+  - id: String?, このシーケンスの固有ID。
+  - description: String?, このシーケンスの説明。
+  - info: Map<String, dynamic>?, このシーケンスに関するその他の情報。
+  - aminoAcidInfo: Map<String, NucleotideInfo>?, このシーケンスのAminoAcidについての詳細な情報の参照先。
+    - key: String, AminoAcidが持つ参照用のキー。例えば、化学装飾された場合の別名など。
+    - value: AminoAcidInfo, AminoAcidに関する化学修飾などの情報。
 
 ## サポート
 もし何らかの理由で有償のサポートが必要な場合は私の会社に問い合わせてください。  

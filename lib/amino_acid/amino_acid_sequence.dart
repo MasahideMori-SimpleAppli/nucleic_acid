@@ -8,18 +8,20 @@ class AminoAcidSequence {
 
   // N末端->C末端か、C末端->N末端。
   late EnumAminoAcidSequenceDirection direction;
+  String? id;
   String? description;
   Map<String, dynamic>? info;
   Map<String, AminoAcidInfo>? aminoAcidInfo;
 
   /// * [seq] : The mRNA sequence.
+  /// * [id] : This sequence id.
   /// * [direction] : sequence direction. 5'to3' or 3'to5' for mRNA sequence.
   /// This value is reversed for complemented objects.
   /// * [description] : The description of this sequence.
   /// * [info] : Other information of this sequence.
   /// * [aminoAcidInfo] : Reference for information by AminoAcid.
   AminoAcidSequence(NucleotideSequence seq,
-      {this.description, this.info, this.aminoAcidInfo}) {
+      {this.id, this.description, this.info, this.aminoAcidInfo}) {
     sequence = UtilAminoAcid.convertFromNucleotide(seq);
     if (seq.direction == EnumNucleotideSequenceDirection.fiveToThree) {
       direction = EnumAminoAcidSequenceDirection.nToC;
@@ -30,13 +32,15 @@ class AminoAcidSequence {
 
   /// Generate from sequence data.
   /// * [sequence] : The list of AminoAcid.
+  /// * [id] : This sequence id.
   /// * [direction] : sequence direction. 5'to3' or 3'to5' for mRNA sequence.
   /// This value is reversed for complemented objects.
   /// * [description] : The description of this sequence.
   /// * [info] : Other information of this sequence.
   /// * [aminoAcidInfo] : Reference for information by AminoAcid.
   AminoAcidSequence.fromSeq(this.sequence,
-      {this.direction = EnumAminoAcidSequenceDirection.nToC,
+      {this.id,
+      this.direction = EnumAminoAcidSequenceDirection.nToC,
       this.description,
       this.info,
       this.aminoAcidInfo});
@@ -44,13 +48,15 @@ class AminoAcidSequence {
   /// Generate from string data.
   /// * [seq] : The single-letter text for the amino acid.
   /// Only uppercase letters are allowed.
+  /// * [id] : This sequence id.
   /// * [direction] : sequence direction. 5'to3' or 3'to5' for mRNA sequence.
   /// This value is reversed for complemented objects.
   /// * [description] : The description of this sequence.
   /// * [info] : Other information of this sequence.
   /// * [aminoAcidInfo] : Reference for information by AminoAcid.
   AminoAcidSequence.fromStr(String seq,
-      {this.direction = EnumAminoAcidSequenceDirection.nToC,
+      {this.id,
+      this.direction = EnumAminoAcidSequenceDirection.nToC,
       this.description,
       this.info,
       this.aminoAcidInfo}) {
@@ -71,6 +77,7 @@ class AminoAcidSequence {
       }
     }
     return AminoAcidSequence.fromSeq(copySeq,
+        id: id,
         direction: direction,
         description: description,
         info: info != null ? {...info!} : null,
@@ -87,6 +94,7 @@ class AminoAcidSequence {
       seqList.add(i.toDict());
     }
     d['sequence'] = seqList;
+    d['id'] = id;
     d['direction'] = direction.name;
     d['description'] = description;
     d['info'] = info;
@@ -111,6 +119,7 @@ class AminoAcidSequence {
       }
     }
     AminoAcidSequence r = AminoAcidSequence.fromSeq([],
+        id: src['id'],
         direction:
             EnumAminoAcidSequenceDirection.values.byName(src['direction']),
         description: src['description'],
