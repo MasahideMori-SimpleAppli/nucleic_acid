@@ -13,8 +13,9 @@ class UtilCompareNucleotide {
     if (a.length() != a.length()) return false;
     for (int i = 0; i < a.length(); i++) {
       if (fuzzyComp) {
-        if (!a.sequence[i].base.fuzzyComparison(b.sequence[i].base))
+        if (!a.sequence[i].base.fuzzyComparison(b.sequence[i].base)) {
           return false;
+        }
       } else {
         if (a.sequence[i].base != b.sequence[i].base) return false;
       }
@@ -35,8 +36,9 @@ class UtilCompareNucleotide {
     if (a.length() != a.length()) return false;
     for (int i = 0; i < a.length(); i++) {
       if (fuzzyComp) {
-        if (!a.sequence[i].base.fuzzyComparison(b.sequence[i].base))
+        if (!a.sequence[i].base.fuzzyComparison(b.sequence[i].base)) {
           return false;
+        }
       } else {
         if (a.sequence[i].base != b.sequence[i].base) return false;
       }
