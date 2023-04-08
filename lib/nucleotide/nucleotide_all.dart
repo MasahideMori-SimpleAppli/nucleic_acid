@@ -8,5 +8,4 @@ export 'nucleotide.dart';
 export 'nucleotide_info.dart';
 export 'nucleotide_sequence.dart';
 export 'util_compare_nucleotide.dart';
-export 'util_nucleotide_search_pattern.dart';
-export 'util_nucleotide_search_repeat.dart';
+export 'util_nucleotide_search.dart';

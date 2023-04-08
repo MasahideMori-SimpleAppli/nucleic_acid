@@ -40,7 +40,7 @@ class UtilAminoAcid {
 
   /// (en) Convert one-letter notation to three-letter notation.
   ///
-  /// (ja) １文字表記のアミノ酸名からフルネームに変換します。
+  /// (ja) １文字表記のアミノ酸名から３文字表記に変換します。
   static String? convertOneToThree(String oneLetterNotation) {
     return FAminoAcid.oneToThree[oneLetterNotation];
   }
@@ -60,18 +60,17 @@ class UtilAminoAcid {
   }
 
   /// (en) Convert base sequence to amino acid sequence.
-  /// Note that start codons, stop codons,
-  /// and invalid sequences must be filtered out before passing.
+  /// Note that invalid sequences must be filtered out before passing.
   /// Also, a, t(u), g, and c bases can be used.
   ///
   /// (ja) 塩基配列からアミノ酸配列に変換します。
-  /// 注意点として、開始コドン、終止コドン、無効な配列は除外してから渡す必要があります。
+  /// 注意点として、無効な配列は除外してから渡す必要があります。
   /// また、塩基はa,t(u),g,cのいずれかしか利用できません。
   ///
   /// * [seq] : The sequence.
   ///
   /// Throw:　When ambiguous bases are included.
-  static List<AminoAcid> convertAminoAcidList(NucleotideSequence seq) {
+  static List<AminoAcid> convertFromNucleotide(NucleotideSequence seq) {
     final triplet = seq.sequence.slices(3);
     List<AminoAcid> r = [];
     for (List<Nucleotide> i in triplet) {
@@ -84,6 +83,22 @@ class UtilAminoAcid {
       } else {
         r.add(AminoAcid(FDNA.toAminoAcids[codon]!));
       }
+    }
+    return r;
+  }
+
+  /// (en) Convert single-letter text to amino acid sequence.
+  /// Only uppercase letters are allowed.
+  ///
+  /// (ja) 一文字表記のテキストからアミノ酸配列に変換します。
+  /// 大文字表記のテキストだけが許容されます。
+  ///
+  /// * [seq] : The AminoAcid sequence text.
+  /// Throw:　When ambiguous AminoAcid are included.
+  static List<AminoAcid> convertFromStr(String seq) {
+    List<AminoAcid> r = [];
+    for (String i in seq.split('')) {
+      r.add(AminoAcid(EXTEnumAminoAcid.fromOneStr(i)));
     }
     return r;
   }

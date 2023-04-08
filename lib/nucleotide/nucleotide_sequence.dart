@@ -12,7 +12,7 @@ class NucleotideSequence {
   Map<String, dynamic>? info;
   Map<String, NucleotideInfo>? nucleotideInfo;
 
-  /// * [seqStr] : The base sequence. Only lowercase letters are allowed.
+  /// * [seq] : The base sequence. Only lowercase letters are allowed.
   /// Give the result of running toLowerCase() if it contains uppercase letters.
   /// * [type] : DNA or RNA.
   /// * [id] : This sequence id.
@@ -21,19 +21,27 @@ class NucleotideSequence {
   /// * [description] : The description of this sequence.
   /// * [info] : Other information of this sequence.
   /// * [nucleotideInfo] : Reference for information by nucleotide.
-  NucleotideSequence(String seqStr,
+  NucleotideSequence(String seq,
       {this.type = EnumNucleotideSequenceType.dna,
       this.id,
       this.direction = EnumNucleotideSequenceDirection.fiveToThree,
       this.description,
       this.info,
       this.nucleotideInfo}) {
-    for (String baseName in seqStr.split('')) {
+    for (String baseName in seq.split('')) {
       sequence.add(Nucleotide(EnumBase.values.byName(baseName)));
     }
   }
 
   /// Generate from sequence data.
+  /// * [sequence] : The list of Nucleotide.
+  /// * [type] : DNA or RNA.
+  /// * [id] : This sequence id.
+  /// * [direction] : sequence direction. 5'to3' or 3'to5'.
+  /// This value is reversed for complemented objects.
+  /// * [description] : The description of this sequence.
+  /// * [info] : Other information of this sequence.
+  /// * [nucleotideInfo] : Reference for information by nucleotide.
   NucleotideSequence.fromSeq(this.sequence,
       {this.type = EnumNucleotideSequenceType.dna,
       this.id,

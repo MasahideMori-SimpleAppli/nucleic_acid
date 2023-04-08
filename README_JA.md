@@ -57,11 +57,22 @@ NucleotideSequence gac = NucleotideSequence("attgac").subSeq(3);
         NucleotideSequence('ATGAATTCAGAATTCTATATATATATACC'.toLowerCase());
     final NucleotideSequence ecoRI = NucleotideSequence('GAATTC'.toLowerCase());
     // 2 と 9 が得られます.
-    List<int> ecoRIPositions = UtilNucleotideSearchPattern.getPositions(seq, ecoRI, true);
+    List<int> ecoRIPositions = UtilNucleotideSearch.getPositions(seq, ecoRI, true);
+
+    // 曖昧な検索も可能です。
+    final NucleotideSequence fuzzyEcoRI = NucleotideSequence('GNMTTC'.toLowerCase());
+    // 同様にecoRIPositions2[0] == 2, ecoRIPositions2[1] == 9 が得られます。
+    List<int> ecoRIPositions2 = UtilNucleotideSearch.getPositions(seq, fuzzyEcoRI, true, fuzzyComp: true);
     
     // タンデムリピートの開始位置と終了位置を探索します。
     // tRepeat[0][0] = 15, tRepeat[0][1] = 27　が得られます。
-    List<List<int>> tRepeat = UtilNucleotideSearchRepeat.tandemRepeat(seq, 2, 2, true);
+    List<List<int>> tRepeats = UtilNucleotideSearch.tandemRepeat(seq, 2, 2, true);
+
+    // AminoAcidSequenceでも同様のAPIが利用できます。
+    AminoAcidSequence aaSeq = AminoAcidSequence.fromStr("MVWWLALALAANYY");
+    AminoAcidSequence target = AminoAcidSequence.fromStr("LXLXLXXN");
+    // tPositions[0] == 4 が得られます。
+    List<int> tPositions = UtilAminoAcidSearch.getPositions(aaSeq, target, true, fuzzyComp: true);
 ```
 
 ## データ構造について (デコードされた状態)

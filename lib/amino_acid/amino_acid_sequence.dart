@@ -20,7 +20,7 @@ class AminoAcidSequence {
   /// * [aminoAcidInfo] : Reference for information by AminoAcid.
   AminoAcidSequence(NucleotideSequence seq,
       {this.description, this.info, this.aminoAcidInfo}) {
-    sequence = UtilAminoAcid.convertAminoAcidList(seq);
+    sequence = UtilAminoAcid.convertFromNucleotide(seq);
     if (seq.direction == EnumNucleotideSequenceDirection.fiveToThree) {
       direction = EnumAminoAcidSequenceDirection.nToC;
     } else {
@@ -29,11 +29,33 @@ class AminoAcidSequence {
   }
 
   /// Generate from sequence data.
+  /// * [sequence] : The list of AminoAcid.
+  /// * [direction] : sequence direction. 5'to3' or 3'to5' for mRNA sequence.
+  /// This value is reversed for complemented objects.
+  /// * [description] : The description of this sequence.
+  /// * [info] : Other information of this sequence.
+  /// * [aminoAcidInfo] : Reference for information by AminoAcid.
   AminoAcidSequence.fromSeq(this.sequence,
       {this.direction = EnumAminoAcidSequenceDirection.nToC,
       this.description,
       this.info,
       this.aminoAcidInfo});
+
+  /// Generate from string data.
+  /// * [seq] : The single-letter text for the amino acid.
+  /// Only uppercase letters are allowed.
+  /// * [direction] : sequence direction. 5'to3' or 3'to5' for mRNA sequence.
+  /// This value is reversed for complemented objects.
+  /// * [description] : The description of this sequence.
+  /// * [info] : Other information of this sequence.
+  /// * [aminoAcidInfo] : Reference for information by AminoAcid.
+  AminoAcidSequence.fromStr(String seq,
+      {this.direction = EnumAminoAcidSequenceDirection.nToC,
+      this.description,
+      this.info,
+      this.aminoAcidInfo}) {
+    sequence = UtilAminoAcid.convertFromStr(seq);
+  }
 
   /// deep copy.
   AminoAcidSequence deepCopy() {
@@ -118,6 +140,11 @@ class AminoAcidSequence {
     r.sequence = r.sequence.reversed.toList();
     r.direction = r.direction.reversed();
     return r;
+  }
+
+  /// Return sequence length.
+  int length() {
+    return sequence.length;
   }
 
   /// (en) Returns text written in single letter(uppercase letter) notation.

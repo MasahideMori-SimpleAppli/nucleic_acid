@@ -26,4 +26,21 @@ void main() {
             UtilFasta.writeFromFastaRecord(fastaRecords[0]),
         false);
   });
+
+  test('Test UtilFastaSearch', () {
+    String fastaContent = '>sequence1\n';
+    String seq1 = 'ATGAATTCAGAATTCTATATATATATACC';
+    fastaContent += "$seq1\n";
+    List<FastaRecord> fastaRecords = UtilFasta.readByFastaRecord(fastaContent);
+    // get sequence positions.
+    List<int> ecoRIPositions =
+        UtilFastaSearch.getPositions(fastaRecords[0], 'GAATTC');
+    expect(ecoRIPositions[0] == 2, true);
+    expect(ecoRIPositions[1] == 9, true);
+    // get tandem repeat.
+    List<List<int>> tRepeat =
+        UtilFastaSearch.tandemRepeat(fastaRecords[0], 2, 2);
+    expect(tRepeat[0][0] == 15, true); // start repeat.
+    expect(tRepeat[0][1] == 27, true); // end repeat.
+  });
 }

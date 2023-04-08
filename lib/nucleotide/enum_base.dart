@@ -1,4 +1,4 @@
-import 'package:nucleic_acid/nucleotide/enum_nucleotide_sequence_type.dart';
+import 'package:nucleic_acid/nucleic_acid.dart';
 
 /// Some information was created with reference to:
 /// https://www.ddbj.nig.ac.jp/ddbj/code.html
@@ -6,6 +6,21 @@ import 'package:nucleic_acid/nucleotide/enum_nucleotide_sequence_type.dart';
 enum EnumBase { a, c, g, t, m, r, w, s, y, k, v, h, d, b, n, u }
 
 extension ExtEnumBase on EnumBase {
+  /// Fuzzy Compare. return this == other.
+  /// * [other] : The target for comparison.
+  bool fuzzyComparison(EnumBase other) {
+    final List<EnumBase> myList = FBase.allCode[this]!;
+    final List<EnumBase> others = FBase.allCode[other]!;
+    for (EnumBase i in myList) {
+      for (EnumBase j in others) {
+        if (i == j) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
   /// * [type] : The converted type. DNA or RNA.
   EnumBase converted(EnumNucleotideSequenceType type) {
     if (type == EnumNucleotideSequenceType.dna) {

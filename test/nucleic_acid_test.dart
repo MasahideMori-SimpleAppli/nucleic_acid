@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:nucleic_acid/nucleic_acid.dart';
+import 'dart:convert';
 
 void main() {
   test('Test NucleotideSequence', () {
@@ -27,7 +28,7 @@ void main() {
     expect(tRNA.type == EnumNucleotideSequenceType.rna, true);
 
     final NucleotideSequence resumed =
-        NucleotideSequence.fromDict(tRNA.toDict());
+        NucleotideSequence.fromDict(jsonDecode(jsonEncode(tRNA.toDict())));
     expect(resumed.toStr() == 'uaacug', true);
     expect(
         resumed.direction == EnumNucleotideSequenceDirection.threeToFive, true);
@@ -102,19 +103,43 @@ void main() {
     expect(pep1.toStr() == 'IDID', true);
   });
 
-  test('Test UtilNucleotideSearchPattern and Repeat', () {
+  test('Test UtilNucleotideSearch', () {
     // get sequence positions.
     final NucleotideSequence seq =
         NucleotideSequence('ATGAATTCAGAATTCTATATATATATACC'.toLowerCase());
     final NucleotideSequence ecoRI = NucleotideSequence('GAATTC'.toLowerCase());
     List<int> ecoRIPositions =
-        UtilNucleotideSearchPattern.getPositions(seq, ecoRI, true);
+        UtilNucleotideSearch.getPositions(seq, ecoRI, true);
     expect(ecoRIPositions[0] == 2, true);
     expect(ecoRIPositions[1] == 9, true);
     // get tandem repeat.
     List<List<int>> tRepeat =
-        UtilNucleotideSearchRepeat.tandemRepeat(seq, 2, 2, true);
+        UtilNucleotideSearch.tandemRepeat(seq, 2, 2, true);
     expect(tRepeat[0][0] == 15, true); // start repeat.
     expect(tRepeat[0][1] == 27, true); // end repeat.
+    expect(
+        seq.subSeq(tRepeat[0][0], tRepeat[0][1]).toStr().toUpperCase() ==
+            "TATATATATATA",
+        true);
+    // fuzzy search test.
+    final NucleotideSequence fuzzyEcoRI =
+        NucleotideSequence('GNMTTC'.toLowerCase());
+    final NucleotideSequence fuzzySeq =
+        NucleotideSequence('ATGAATTCAGAATTCTMTMTNTNTATACC'.toLowerCase());
+    List<int> ecoRIPositions2 = UtilNucleotideSearch.getPositions(
+        seq, fuzzyEcoRI, true,
+        fuzzyComp: true);
+    expect(ecoRIPositions2[0] == 2, true);
+    expect(ecoRIPositions2[1] == 9, true);
+    // get tandem repeat.
+    List<List<int>> tRepeat2 = UtilNucleotideSearch.tandemRepeat(
+        fuzzySeq, 2, 2, true,
+        fuzzyComp: true);
+    expect(tRepeat2[0][0] == 13, true); // start repeat.
+    expect(tRepeat2[0][1] == 23, true); // end repeat.
+    expect(
+        fuzzySeq.subSeq(tRepeat2[0][0], tRepeat2[0][1]).toStr().toUpperCase() ==
+            "TCTMTMTNTN",
+        true);
   });
 }

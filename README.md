@@ -58,11 +58,22 @@ NucleotideSequence gac = NucleotideSequence("attgac").subSeq(3);
         NucleotideSequence('ATGAATTCAGAATTCTATATATATATACC'.toLowerCase());
     final NucleotideSequence ecoRI = NucleotideSequence('GAATTC'.toLowerCase());
     // get 2 and 9.
-    List<int> ecoRIPositions = UtilNucleotideSearchPattern.getPositions(seq, ecoRI, true);
+    List<int> ecoRIPositions = UtilNucleotideSearch.getPositions(seq, ecoRI, true);
+
+    // A fuzzy search is also possible.
+    final NucleotideSequence fuzzyEcoRI = NucleotideSequence('GNMTTC'.toLowerCase());
+    // get 2 and 9.
+    List<int> ecoRIPositions2 = UtilNucleotideSearch.getPositions(seq, fuzzyEcoRI, true, fuzzyComp: true);
     
     // Searching for tandem repeats
     // get tRepeat[0][0] = 15 (start position), tRepeat[0][1] = 27 (end position).
-    List<List<int>> tRepeat = UtilNucleotideSearchRepeat.tandemRepeat(seq, 2, 2, true);
+    List<List<int>> tRepeats = UtilNucleotideSearch.tandemRepeat(seq, 2, 2, true);
+    
+    // A similar API is available for AminoAcidSequence.
+    AminoAcidSequence aaSeq = AminoAcidSequence.fromStr("MVWWLALALAANYY");
+    AminoAcidSequence target = AminoAcidSequence.fromStr("LXLXLXXN");
+    // get tPositions[0] == 4.
+    List<int> tPositions = UtilAminoAcidSearch.getPositions(aaSeq, target, true, fuzzyComp: true);
 ```
 
 ## About the data structure (decoded state)
